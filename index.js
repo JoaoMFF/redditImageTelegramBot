@@ -1,5 +1,5 @@
 const Telegraf = require('telegraf');
-const app = new Telegraf('498772438:AAEVNh8CfFa1eeETnX7w0sWykd713qlkfaA');
+const app = new Telegraf('YOUR_TOKEN_GOES_HERE');
 const axios = require('axios'); // add axios
 const rn = require('random-number'); // random-number
 
@@ -33,6 +33,14 @@ app.command('/reddit', (ctx) =>{
 
     // if there's any error in request
     .catch(err => ctx.reply("The subreddit couldn't be found."));
+});
+
+app.command('/help', (ctx) =>{
+
+});
+
+app.command('/subreddits', (ctx) =>{
+
 });
 
 app.startPolling();
