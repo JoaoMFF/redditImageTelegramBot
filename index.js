@@ -6,6 +6,14 @@ const rn = require('random-number'); // random-number
 app.command('/reddit', (ctx) =>{
   const subreddit = ctx.message.text.replace('/reddit ','');
 
+  // random post selector
+  const randomNr = rn.generator({
+    min:  2,
+    max:  26,
+    integer: true
+  })
+  const rand = randomNr();
+  
   axios
     .get(`https://reddit.com/r/${subreddit}/hot.json?sort=hot&t=all`)
     .then(res => {
@@ -16,15 +24,9 @@ app.command('/reddit', (ctx) =>{
       if (data.children.length < 1)
         return ctx.reply("The subreddit couldn't be found.");
 
-      // random post selector
-      const randomNr = rn.generator({
-        min:  2,
-        max:  26,
-        integer: true
-      })
-
-      const link = `${data.children[randomNr()].data.url}`;
-      const title = `${data.children[randomNr()].data.title}`;
+      
+      const link = `${data.children[rand].data.url}`;
+      const title = `${data.children[rand].data.title}`;
       ctx.reply(title + '\n' + link);
       //ctx.reply(link);
     })
