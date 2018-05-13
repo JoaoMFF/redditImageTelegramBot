@@ -3,8 +3,8 @@ const app = new Telegraf('YOUR_TOKEN_GOES_HERE');
 const axios = require('axios'); // add axios
 const rn = require('random-number'); // random-number
 
-app.command('/reddit', (ctx) =>{
-  const subreddit = ctx.message.text.replace('/reddit ','');
+app.command('/r', (ctx) =>{
+  const subreddit = ctx.message.text.replace('/r ','');
 
   // random post selector
   const randomNr = rn.generator({
@@ -27,6 +27,7 @@ app.command('/reddit', (ctx) =>{
       
       const link = `${data.children[rand].data.url}`;
       const title = `${data.children[rand].data.title}`;
+      
       ctx.reply(title + '\n' + link);
       //ctx.reply(link);
     })
@@ -36,11 +37,11 @@ app.command('/reddit', (ctx) =>{
 });
 
 app.command('/help', (ctx) =>{
-
+  ctx.reply('List of commands: \n/r <subreddit name> \n/subreddits')
 });
 
 app.command('/subreddits', (ctx) =>{
-
+  ctx.reply('WIP')
 });
 
 app.startPolling();
