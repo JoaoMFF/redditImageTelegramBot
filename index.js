@@ -40,8 +40,54 @@ app.command('/help', (ctx) =>{
   ctx.reply('List of commands: \n/r <subreddit name> \n/subreddits')
 });
 
-app.command('/subreddits', (ctx) =>{
-  ctx.reply('WIP')
+app.command('/subs', (ctx) =>{
+  ctx.reply(`Poputal subreddit list:
+
+  todayilearned
+  pics
+  aww
+  EarthPorn
+  mildlyinteresting
+  Jokes
+  tifu
+  GetMotivated
+  Unexpected
+  CrappyDesign
+  preetygirls
+  `)
+});
+
+app.command('/spam', (ctx) =>{
+  ctx.reply(`SPAM
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+SPAM`)
 });
 
 app.startPolling();

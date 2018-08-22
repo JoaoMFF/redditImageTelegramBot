@@ -13,7 +13,10 @@ Simple Telegram bot that allows the users to fetch a random posts from Reddit.
 
 ### Commands
 
-> /reddit subredditname
+> /r subredditname
+> /help
+> /subs
+> /spam
 
 Example
 
