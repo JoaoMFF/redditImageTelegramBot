@@ -37,7 +37,7 @@ app.command('/r', (ctx) =>{
 });
 
 app.command('/help', (ctx) =>{
-  ctx.reply('List of commands: \n/r <subreddit name> \n/subreddits')
+  ctx.reply('List of commands: \n/r <subreddit name> \n/subs \n/spam')
 });
 
 app.command('/subs', (ctx) =>{
