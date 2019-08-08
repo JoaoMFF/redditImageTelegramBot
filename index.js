@@ -1,47 +1,49 @@
-const Telegraf = require('telegraf');
-const app = new Telegraf('YOUR_TOKEN_GOES_HERE');
-const axios = require('axios'); // add axios
-const rn = require('random-number'); // random-number
+let Telegraf = require('telegraf');
+let app = new Telegraf('YOUR_TOKEN_GOES_HERE');
+let axios = require('axios'); // add axios
+let rn = require('random-number'); // random-number
 
-app.command('/r', (ctx) =>{
-  const subreddit = ctx.message.text.replace('/r ','');
+app.command(['/r', '/R'], (ctx) => {
+    let text = ctx.message.text.split('/r '),
+        subreddit = '';
+    subreddit = text[1].replace(/\s/g, "");
 
-  // random post selector
-  const randomNr = rn.generator({
-    min:  2,
-    max:  26,
-    integer: true
-  })
-  const rand = randomNr();
-  
-  axios
-    .get(`https://reddit.com/r/${subreddit}/hot.json?sort=hot&t=all`)
-    .then(res => {
-      // data recieved from Reddit
-      const data = res.data.data;
-
-      // if subbreddit does not exist
-      if (data.children.length < 1)
-        return ctx.reply("The subreddit couldn't be found.");
-
-      
-      const link = `${data.children[rand].data.url}`;
-      const title = `${data.children[rand].data.title}`;
-      
-      ctx.reply(title + '\n' + link);
-      //ctx.reply(link);
+    // random post selector
+    let randomNr = rn.generator({
+        min: 2,
+        max: 26,
+        integer: true
     })
 
-    // if there's any error in request
-    .catch(err => ctx.reply("The subreddit couldn't be found."));
+    axios
+        .get(`https://reddit.com/r/${subreddit}/hot.json?sort=hot&t=all`)
+        .then(res => {
+            // data recieved from Reddit
+            let data = res.data.data,
+                length = data.children.length;
+
+            // if subbreddit does not exist
+            if (length < 1)
+                return ctx.reply("The subreddit couldn't be found.");
+
+            let rand = randomNr(2, length, true);
+            let link = `${data.children[rand].data.url}`;
+            let title = `${data.children[rand].data.title}`;
+
+            ctx.reply(title + '\n' + link);
+            //ctx.reply(link);
+        })
+
+        // if there's any error in request
+        .catch(err => ctx.reply("Oh shit, what up?"));
 });
 
-app.command('/help', (ctx) =>{
-  ctx.reply('List of commands: \n/r <subreddit name> \n/subs \n/spam')
+app.command('/help', (ctx) => {
+    ctx.reply('List of commands: \n/r <subreddit name> \n/subs \n/spam')
 });
 
-app.command('/subs', (ctx) =>{
-  ctx.reply(`Poputal subreddit list:
+app.command('/subs', (ctx) => {
+    ctx.reply(`Poputal subreddit list:
 
   todayilearned
   pics
@@ -57,8 +59,10 @@ app.command('/subs', (ctx) =>{
   `)
 });
 
-app.command('/spam', (ctx) =>{
-  ctx.reply(`SPAM
+app.command(["/spam", "/Spam", "/SPAM"], (ctx) => {
+    ctx.reply(`SPAM
+
+
 
 
 
