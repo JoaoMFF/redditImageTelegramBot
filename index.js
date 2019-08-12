@@ -1,5 +1,8 @@
 let Telegraf = require('telegraf');
-let app = new Telegraf('YOUR_TOKEN_GOES_HERE');
+
+const {YOUR_TOKEN_GOES_HERE} = process.env;
+
+let app = new Telegraf(YOUR_TOKEN_GOES_HERE);
 let axios = require('axios'); // add axios
 let rn = require('random-number'); // random-number
 
@@ -24,7 +27,7 @@ app.command(['/r', '/R'], (ctx) => {
 
             // if subbreddit does not exist
             if (length < 1)
-                return ctx.reply("The subreddit couldn't be found.");
+                return ctx.reply("That name doesn't seem to exist!");
 
             let rand = randomNr(2, length, true);
             let link = `${data.children[rand].data.url}`;
@@ -35,7 +38,7 @@ app.command(['/r', '/R'], (ctx) => {
         })
 
         // if there's any error in request
-        .catch(err => ctx.reply("Oh shit, what up?"));
+        .catch(err => ctx.reply("Oh shit, i can't find that"));
 });
 
 app.command('/help', (ctx) => {
