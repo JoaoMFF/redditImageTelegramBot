@@ -1,0 +1,80 @@
+{
+    "env": {
+        "browser": true,
+        "commonjs": true,
+        "es6": true
+    },
+    "extends": "eslint:recommended",
+    "parserOptions": {
+        "ecmaVersion": 2018,
+        "sourceType": "module"
+    },
+    "globals": {
+        "process": false
+    },
+    "rules": {
+        "arrow-body-style": ["off"],
+        "arrow-parens": ["error", "as-needed"],
+        "arrow-spacing": "error",
+        "brace-style": "error",
+        "comma-spacing": "error",
+        "camelcase": [
+        "error",
+        {"properties": "never"}
+        ],
+        "computed-property-spacing": "error",
+        "no-await-in-loop": "off",
+        "no-extra-parens": "error",
+        "no-template-curly-in-string": "error",
+        // "require-atomic-updates": "error",
+        "curly": "error",
+        "comma-dangle": ["error", "never"],
+        "eqeqeq": ["error", "smart"],
+        "func-call-spacing": "error",
+        "implicit-arrow-linebreak": "error",
+        "key-spacing": "error",
+        "keyword-spacing": "error",
+        "no-extend-native": "error",
+        "no-multiple-empty-lines": "error",
+        "no-multi-str": "error",
+        "no-confusing-arrow": "error",
+        "no-var": "error",
+        "no-multi-spaces": "error",
+        "no-return-await": "error",
+        "no-unused-expressions": "error",
+        "no-trailing-spaces": "error",
+        "no-whitespace-before-property": "error",
+        "no-sequences": "error",
+        "require-await": "error",
+        "object-shorthand": "error",
+        "object-curly-newline": ["error", {"minProperties": 2, "multiline": true}],
+        "prefer-arrow-callback": "error",
+        "prefer-const": "error",
+        "prefer-numeric-literals": "error",
+        "prefer-template": "error",
+        "rest-spread-spacing": ["error"],
+        "quote-props": [
+        "error",
+        "as-needed"
+        ],
+        "indent": [
+        "error",
+        4
+        ],
+        "linebreak-style": [
+        "error",
+        "unix"
+        ],
+        "quotes": [
+        "error",
+        "double",
+        {
+            "avoidEscape": true
+        }
+        ],
+        "semi": [
+        "error",
+        "always"
+        ]
+    }
+}

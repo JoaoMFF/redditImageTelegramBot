@@ -1,51 +1,66 @@
-let Telegraf = require('telegraf');
-
+// Imports
+const Telegraf = require("telegraf");
+const axios = require("axios"); // add axios
+const rn = require("random-number"); // random-number
+const logger = require("./logger");
+// Env
 const {YOUR_TOKEN_GOES_HERE} = process.env;
 
-let app = new Telegraf(YOUR_TOKEN_GOES_HERE);
-let axios = require('axios'); // add axios
-let rn = require('random-number'); // random-number
-
-app.command(['/r', '/R'], (ctx) => {
-    let text = ctx.message.text.split('/r '),
-        subreddit = '';
-    subreddit = text[1].replace(/\s/g, "");
-
-    // random post selector
-    let randomNr = rn.generator({
-        min: 2,
-        max: 26,
-        integer: true
-    })
-
-    axios
-        .get(`https://reddit.com/r/${subreddit}/hot.json?sort=hot&t=all`)
-        .then(res => {
-            // data recieved from Reddit
-            let data = res.data.data,
-                length = data.children.length;
-
-            // if subbreddit does not exist
-            if (length < 1)
-                return ctx.reply("That name doesn't seem to exist!");
-
-            let rand = randomNr(2, length, true);
-            let link = `${data.children[rand].data.url}`;
-            let title = `${data.children[rand].data.title}`;
-
-            ctx.reply(title + '\n' + link);
-            //ctx.reply(link);
-        })
-
-        // if there's any error in request
-        .catch(err => ctx.reply("Oh shit, i can't find that"));
+// random post selector
+const randomNr = rn.generator({
+    min: 2,
+    max: 26,
+    integer: true
 });
 
-app.command('/help', (ctx) => {
-    ctx.reply('List of commands: \n/r <subreddit name> \n/subs \n/spam')
+const app = new Telegraf(YOUR_TOKEN_GOES_HERE);
+app.command(["/r", "/R"], async ctx => {
+    const text = ctx.message.text.split("/r ");
+    const subreddit = text[1].replace(/\s/g, "");
+
+    try {
+        const response = await axios.get(`https://reddit.com/r/${subreddit}/hot.json?sort=hot&t=all`);
+        // data recieved from Reddit
+        const data = response.data.data;
+        const length = data.children.length;
+
+        // if subbreddit does not exist
+        if (length < 1) {
+            return ctx.reply("That name doesn't seem to exist!");
+        }
+
+        const rand = randomNr(2, length, true);
+        const link = `${data.children[rand].data.url}`;
+        const title = `${data.children[rand].data.title}`;
+
+        ctx.reply(`${title }\n${ link}`);
+    } catch (error) {
+        logger.logError("Error when fetching subreddit", error);
+        ctx.reply("Oh shit, i can't find that");
+    }
+
 });
 
-app.command('/subs', (ctx) => {
+app.command("/help", ctx => {
+    ctx.reply("List of commands: \n/r <subreddit name> \n/subs \n/spam");
+});
+
+app.command("/debug", ctx => {
+    try {
+        let date;
+        const text = ctx.message.text.trim().replace("/debug", "");
+        if (text) {
+            date = new Date(text).valueOf();
+        }
+
+        const logs = logger.debugErrors(date);
+        ctx.reply(logs);
+    } catch (error) {
+        ctx.reply("Wrong usage of command, use it like `/debug 1970-01-01`");
+    }
+});
+
+app.command("/subs", ctx => {
     ctx.reply(`Poputal subreddit list:
 
   todayilearned
@@ -59,10 +74,10 @@ app.command('/subs', (ctx) => {
   Unexpected
   CrappyDesign
   preetygirls
-  `)
+  `);
 });
 
-app.command(["/spam", "/Spam", "/SPAM"], (ctx) => {
+app.command(["/spam", "/Spam", "/SPAM"], ctx => {
     ctx.reply(`SPAM
 
 
@@ -94,7 +109,7 @@ app.command(["/spam", "/Spam", "/SPAM"], (ctx) => {
 
 
 
-SPAM`)
+SPAM`);
 });
 
 app.startPolling();

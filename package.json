@@ -15,6 +15,7 @@
   "author": "João Filipe",
   "license": "ISC",
   "devDependencies": {
+    "eslint": "^5.12.1",
     "nodemon": "^1.18.9"
   },
   "dependencies": {
