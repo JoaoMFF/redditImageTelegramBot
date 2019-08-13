@@ -3,7 +3,7 @@ services:
   redditimagetelegrambot:
     image: node:10.11-alpine
     working_dir: /app
-    command: sh -c "npm install && npm dev-start"
+    command: sh -c "npm install && npm run dev-start"
     environment:
       - YOUR_TOKEN_GOES_HERE=token
     ports:
