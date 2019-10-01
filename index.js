@@ -42,7 +42,7 @@ app.command(["/r", "/R"], async ctx => {
 });
 
 app.command("/help", ctx => {
-    ctx.reply("List of commands: \n/r <subreddit name> \n/subs \n/spam");
+    ctx.reply("List of commands: \n/r <subreddit name> \n/subs \n/spam \n /debug \n /g <image to search>");
 });
 
 app.command("/debug", ctx => {
