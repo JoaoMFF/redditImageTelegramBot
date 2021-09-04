@@ -15,15 +15,20 @@
   "author": "João Filipe",
   "license": "ISC",
   "devDependencies": {
-    "eslint": "^5.12.1",
-    "nodemon": "^1.18.9"
+    "eslint": "^7.32.0",
+    "nodemon": "^2.0.12"
   },
   "dependencies": {
-    "axios": "~0.18.1",
+    "acorn": "^6.4.2",
+    "axios": "^0.21.3",
+    "bufferutil": "^4.0.3",
+    "canvas": "^2.8.0",
     "delp": "^1.0.39",
-    "puppeteer": "~1.10.0",
+    "npm-check-updates": "^11.8.5",
     "random-number": "0.0.9",
-    "telegraf": "~3.20.0"
+    "slugify": "^1.6.0",
+    "telegraf": "^4.4.1",
+    "utf-8-validate": "^5.0.5"
   },
   "engines": {
     "node": "10.3.0"

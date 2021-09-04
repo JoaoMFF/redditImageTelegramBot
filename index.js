@@ -1,9 +1,10 @@
 // Imports
-const Telegraf = require("telegraf");
+const { Telegraf } = require("telegraf");
 const axios = require("axios"); // add axios
 const rn = require("random-number"); // random-number
 const logger = require("./logger");
 const delp = require("delp");
+const urbanDict = require("./urbanDict");
 
 
 // Env
@@ -30,6 +31,16 @@ const botCommands = [
         command: "/dic|/dictionary",
         helper: "<word>",
         description: "Search a dictionary for a portuguese word"
+    },
+    {
+        command: "/spit",
+        helper: "",
+        description: "Spits back"
+    },
+    {
+        command: "/urban",
+        helper: "<expression>",
+        description: "Search Urban dictionary for a expression"
     },
     {
         command: "/debug",
@@ -68,35 +79,48 @@ app.command(ctx => {
     const commandObj = parseCommand(ctx.message.text);
     const selectedCommand = commandList.find(commandStr => commandObj.command === commandStr);
 
-    switch (selectedCommand) {
-    case "/r":
-        getRandomRedditPost(ctx, commandObj.arg);
-        break;
+    if (selectedCommand) {
+        switch (selectedCommand) {
+        case "/r":
+            getRandomRedditPost(ctx, commandObj.arg);
+            break;
 
-    case "/subs":
-        showSubredditList(ctx);
-        break;
+        case "/subs":
+            showSubredditList(ctx);
+            break;
 
-    case "/spam":
-        showSpacer(ctx);
-        break;
+        case "/spam":
+            showSpacer(ctx);
+            break;
 
-    case "/dic":
-    case "/dictionary" :
-        getDictionaryMeaning(ctx, commandObj.arg);
-        break;
+        case "/dic":
+        case "/dictionary" :
+            getDictionaryMeaning(ctx, commandObj.arg);
+            break;
 
-    case "/debug" :
-        showDebug(ctx);
-        break;
+        case "/urban":
+            urbanDict.getMeaning(ctx, commandObj.arg);
+            break;
 
-    case "/help":
-        showHelp(ctx);
-        break;
+        case "/spit":
+            ctx.reply("```\nspits back```", {
+                parse_mode: "MarkdownV2",
+                reply_to_message_id: ctx.message.message_id
+            });
+            break;
 
-    default:
-        ctx.reply("Sorry, I can't do that");
-        break;
+        case "/debug" :
+            showDebug(ctx);
+            break;
+
+        case "/help":
+            showHelp(ctx);
+            break;
+
+        default:
+            ctx.reply("Sorry, I can't do that");
+            break;
+        }
     }
 });
 

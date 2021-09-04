@@ -1,12 +1,13 @@
 version: '3'
 services:
   redditimagetelegrambot:
-    image: node:10.11-alpine
+    image: node:lts-slim
     restart: always
     working_dir: /app
     command: sh -c "npm run dev-start"
     environment:
       - YOUR_TOKEN_GOES_HERE=token
+      - RAPID_API_KEY=api-key
     ports:
       - "8888:80"
     volumes:

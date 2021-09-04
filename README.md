@@ -23,12 +23,16 @@ Simple Telegram bot that allows the users to fetch a random posts from Reddit.
 > /spam
 > 
 > /dictionary `<word>`
+> 
+> /urban `<expression>`
 
 Example
 
 > /reddit cats
 >
 > /dictionary palavra
+> 
+> /urban wilding out
 
 ### Developing
 Environment set up:
