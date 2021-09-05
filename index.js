@@ -79,7 +79,7 @@ app.command(ctx => {
     const commandObj = parseCommand(ctx.message.text);
     const selectedCommand = commandList.find(commandStr => commandObj.command === commandStr);
 
-    if (selectedCommand) {
+    if (commandObj.command && commandObj.command.charAt(0) === "/") {
         switch (selectedCommand) {
         case "/r":
             getRandomRedditPost(ctx, commandObj.arg);
