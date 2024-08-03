@@ -1,5 +1,5 @@
 const axios = require("axios"); // add axios
-const logger = require("./logger");
+const logger = require("../logger");
 const slugify = require("slugify");
 
 const getMeaning = async function (context, expression) {
