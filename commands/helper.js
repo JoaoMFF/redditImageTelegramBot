@@ -32,7 +32,7 @@ const botCommands = [
         description: "Search Urban dictionary for a expression"
     },
     {
-        command: "/here",
+        command: "/here|/everyone",
         helper: "",
         description: "Tag every admin in the group chat"
     },

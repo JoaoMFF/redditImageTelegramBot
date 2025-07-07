@@ -47,6 +47,7 @@ app.command(ctx => {
             });
             break;
 
+        case "/everyone":
         case "/here":
             everyone.tagEveryone(ctx);
             break;
