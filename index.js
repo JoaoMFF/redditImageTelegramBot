@@ -6,6 +6,7 @@ const urbanDict = require("./commands/urbanDict");
 const reddit = require("./commands/reddit");
 const spam = require("./commands/spam");
 const helper = require("./commands/helper");
+const everyone = require("./commands/everyone");
 
 // Env
 const {YOUR_TOKEN_GOES_HERE} = process.env;
@@ -44,6 +45,10 @@ app.command(ctx => {
                 parse_mode: "MarkdownV2",
                 reply_to_message_id: ctx.message.message_id
             });
+            break;
+
+        case "/here":
+            everyone.tagEveryone(ctx);
             break;
 
         case "/debug" :
