@@ -2,9 +2,6 @@ const logger = require("../logger");
 
 async function tagEveryone (context) {
     try {
-        // only works in group chats
-        if (context.chat.type !== "group") return
-
         const admins = await context.getChatAdministrators(context.chat.id)
 
         // does not work in a group with a single admin
